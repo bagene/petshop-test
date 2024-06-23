@@ -13,4 +13,6 @@ interface SessionRepositoryInterface extends RepositoryInterface
     public function setSession(JwtToken $jwtToken): void;
 
     public function getUser(): ?User;
+
+    public function getToken(): ?JwtToken;
 }

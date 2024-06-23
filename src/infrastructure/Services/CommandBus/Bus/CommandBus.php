@@ -18,11 +18,8 @@ final readonly class CommandBus implements CommandBusInterface
     {
     }
 
-    public function dispatch(CommandInterface $command): CommandResponseInterface
+    public function dispatch(CommandInterface $command): ?CommandResponseInterface
     {
-        /** @var CommandResponseInterface $response */
-        $response = $this->bus->dispatch($command);
-
-        return $response;
+        return $this->bus->dispatch($command);
     }
 }

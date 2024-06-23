@@ -13,12 +13,14 @@ use Illuminate\Database\DatabaseManager;
 final class SessionRepository extends AbstractRepository implements SessionRepositoryInterface
 {
     protected ?User $user = null;
+    protected ?JwtToken $jwtToken = null;
 
     public function __construct(DatabaseManager $database, JwtToken $model)
     {
         parent::__construct($database, $model);
 
         $this->user = null;
+        $this->jwtToken = null;
     }
 
     public function setSession(JwtToken $jwtToken): void
@@ -27,10 +29,17 @@ final class SessionRepository extends AbstractRepository implements SessionRepos
 
         $jwtToken->last_used_at = now();
         $jwtToken->save();
+
+        $this->jwtToken = $jwtToken;
     }
 
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    public function getToken(): ?JwtToken
+    {
+        return $this->jwtToken;
     }
 }

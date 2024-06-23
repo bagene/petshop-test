@@ -50,6 +50,10 @@ trait StaticConstructor
         $constructor = $reflection->getConstructor();
         $arguments = $constructor->getParameters();
 
+        if (count($arguments) === 0) {
+            return [];
+        }
+
         foreach ($arguments as $argument) {
             $default = $argument->isDefaultValueAvailable() ? $argument->getDefaultValue() : null;
             $key = Str::camel($argument->getName());

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Services\Jwt;
 
+use App\Shared\Exceptions\AuthException;
 use Domains\User\Models\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -13,8 +14,8 @@ use Infrastructure\Services\Jwt\DTO\TokenData;
 final readonly class JwtManager implements JwtManagerInterface
 {
     public function __construct(
-        private readonly string $domain,
-        private readonly string $key,
+        private string $domain,
+        private string $key,
     ) {
     }
 
@@ -39,10 +40,14 @@ final readonly class JwtManager implements JwtManagerInterface
 
     public function parse(string $token): TokenData
     {
-        $key = new Key($this->key, self::ALGORITHM);
+        try {
+            $key = new Key($this->key, self::ALGORITHM);
 
-        $data = (array) JWT::decode($token, $key);
+            $data = (array) JWT::decode($token, $key);
 
-        return TokenData::fromArray($data);
+            return TokenData::fromArray($data);
+        } catch (\Throwable $e) {
+            throw new AuthException();
+        }
     }
 }

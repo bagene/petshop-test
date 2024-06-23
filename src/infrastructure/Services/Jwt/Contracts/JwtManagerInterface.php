@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Services\Jwt\Contracts;
 
+use App\Shared\Exceptions\AuthException;
 use Domains\User\Models\User;
 use Infrastructure\Services\Jwt\DTO\TokenData;
 
@@ -15,5 +16,8 @@ interface JwtManagerInterface
 
     public function generate(User $user, int $ttl, int $nbf): string;
 
+    /**
+     * @throws AuthException
+     */
     public function parse(string $token): TokenData;
 }

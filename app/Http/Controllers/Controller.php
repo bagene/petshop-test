@@ -24,22 +24,22 @@ abstract class Controller
     /**
      * @param class-string<CommandInterface> $commandClass
      */
-    protected function dispatch(FormRequest $request, string $commandClass = self::COMMAND_CLASS): JsonResponse
+    protected function dispatch(?FormRequest $request = null, string $commandClass = self::COMMAND_CLASS): ?JsonResponse
     {
-        $command = call_user_func(
-            [$commandClass, 'fromValidatedRequest'],
-            $request
-        );
+        $command = $request !== null ?
+            $commandClass::fromValidatedRequest($request)
+            : new $commandClass();
 
         return response()->json([
-            'data' => $this->commandBus->dispatch($command)->toArray(),
+            'data' => $this->commandBus->dispatch($command)?->toArray(),
         ]);
     }
 
-    protected function ask(): JsonResponse
+    /**
+     * @param class-string<QueryInterface> $queryClass
+     */
+    protected function ask(string $queryClass = self::QUERY_CLASS): JsonResponse
     {
-        /** @var class-string<QueryInterface> $queryClass */
-        $queryClass = static::QUERY_CLASS;
         $query = new $queryClass();
 
         return response()->json([

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Domains\User\Contracts\SessionRepositoryInterface;
 use Domains\User\Contracts\UserRepositoryInterface;
 use Domains\User\DTO\JwtTokenPayload;
+use Domains\User\DTO\UpdateLoginAtPayload;
 use Domains\User\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Infrastructure\Services\Jwt\Contracts\JwtManagerInterface;
@@ -27,13 +28,13 @@ final class LoginCommandHandler
         /** @var User|null $user */
         $user = $this->userRepository->findBy('email', $command->getEmail());
 
-        if (!$user && !Hash::check($command->getPassword(), optional($user)->password)) {
+        if (!$user || !Hash::check($command->getPassword(), optional($user)->password)) {
             throw new \Exception('Invalid credentials');
         }
 
         $tokenTtl = strtotime(JwtManagerInterface::TTL);
         $tokenNbf = strtotime(JwtManagerInterface::NBF);
-        /** @var User $user */
+
         $token = $this->jwtManager->generate($user, $tokenTtl, $tokenNbf);
         Carbon::createFromTimestamp($tokenTtl);
         $this->sessionRepository->create(
@@ -45,6 +46,10 @@ final class LoginCommandHandler
                 'refreshedAt' => Carbon::now(),
             ]),
         );
+
+        $this->userRepository->update($user, UpdateLoginAtPayload::fromArray([
+            'lastLoginAt' => Carbon::now(),
+        ]));
 
         return AuthResponse::fromArray([
             'token' => $token,

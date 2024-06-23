@@ -6,7 +6,7 @@ namespace Infrastructure\Services\CommandBus\Contracts;
 
 interface CommandBusInterface
 {
-    public function dispatch(CommandInterface $command): CommandResponseInterface;
+    public function dispatch(CommandInterface $command): ?CommandResponseInterface;
 
     /**
      * @param array<class-string,class-string> $map

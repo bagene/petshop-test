@@ -7,8 +7,9 @@ namespace App\Shared\Response;
 use App\Shared\Traits\StaticConstructor;
 use App\Shared\Traits\ToArray;
 use Infrastructure\Services\CommandBus\Contracts\CommandResponseInterface;
+use Infrastructure\Services\QueryBus\Contracts\QueryResponseInterface;
 
-final readonly class UserResponse implements CommandResponseInterface
+final readonly class UserResponse implements CommandResponseInterface, QueryResponseInterface
 {
     use StaticConstructor, ToArray;
 

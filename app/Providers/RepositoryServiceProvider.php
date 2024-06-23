@@ -37,6 +37,16 @@ class RepositoryServiceProvider extends ServiceProvider
             foreach ($repositories as $repository) {
                 $repositoryName = basename($repository, '.php');
 
+                // Singleton for SessionRepository
+                // To persist the user session
+                if ($repositoryName === 'SessionRepository') {
+                    $this->app->singleton(
+                        "Domains\\$domain\\Contracts\\{$repositoryName}Interface",
+                        "Domains\\$domain\\Repositories\\$repositoryName",
+                    );
+                    continue;
+                }
+
                 $this->app->bind(
                     "Domains\\$domain\\Contracts\\{$repositoryName}Interface",
                     "Domains\\$domain\\Repositories\\$repositoryName",
