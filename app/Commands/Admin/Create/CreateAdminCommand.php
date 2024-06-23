@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Commands\Admin;
+namespace App\Commands\Admin\Create;
 
 use App\Shared\AbstractCommand;
 use App\Shared\Traits\StaticConstructor;

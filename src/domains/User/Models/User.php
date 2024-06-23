@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace Domains\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -41,7 +43,23 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'last_login_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
+            'is_marketing' => 'boolean',
         ];
+    }
+
+    /**
+     * @return HasMany<JwtToken>
+     */
+    public function tokens(): HasMany
+    {
+        return $this->hasMany(JwtToken::class);
+    }
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
     }
 }

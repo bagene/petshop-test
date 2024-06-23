@@ -51,8 +51,9 @@ trait StaticConstructor
         $arguments = $constructor->getParameters();
 
         foreach ($arguments as $argument) {
+            $default = $argument->isDefaultValueAvailable() ? $argument->getDefaultValue() : null;
             $key = Str::camel($argument->getName());
-            $result[$key] = $data[Str::snake($key)] ?? $data[$key] ?? null;
+            $result[$key] = $data[Str::snake($key)] ?? $data[$key] ?? $default;
         }
 
         return $result;

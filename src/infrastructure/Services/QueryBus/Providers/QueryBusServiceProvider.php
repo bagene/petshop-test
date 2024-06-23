@@ -32,7 +32,7 @@ class QueryBusServiceProvider extends ServiceProvider
     private function mapQueries(): void
     {
         $queryPath = app_path('Queries');
-        $queries = glob("$queryPath/**/*Query.php") ?: [];
+        $queries = glob("$queryPath/**/**/*Query.php") ?: [];
         $queries = array_map(
             fn ($dir) => Str::replace('/', "\\", 'App/' . Str::after($dir, 'app/')),
             $queries,

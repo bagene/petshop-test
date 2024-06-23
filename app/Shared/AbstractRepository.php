@@ -51,6 +51,9 @@ abstract class AbstractRepository implements RepositoryInterface
         $this->model->save();
     }
 
+    /**
+     * @throws DatabaseTransactionException
+     */
     public function create(AbstractDTO $dto): Model
     {
         $this->transaction(fn () => $this->saveDTO($dto));
@@ -58,6 +61,9 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model;
     }
 
+    /**
+     * @throws DatabaseTransactionException
+     */
     public function update(Model $model, AbstractDTO $dto): Model
     {
         $this->model = $model;
@@ -76,6 +82,9 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model->where($column, $value)->first();
     }
 
+    /**
+     * @throws DatabaseTransactionException
+     */
     public function delete(Model $model): bool
     {
         /** @var bool $result */

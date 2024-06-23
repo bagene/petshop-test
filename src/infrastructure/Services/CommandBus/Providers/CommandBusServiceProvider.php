@@ -33,7 +33,7 @@ class CommandBusServiceProvider extends ServiceProvider
     private function mapCommands(): void
     {
         $commandPath = app_path('Commands');
-        $commands = glob("$commandPath/**/*Command.php") ?: [];
+        $commands = glob("$commandPath/**/**/*Command.php") ?: [];
         $commands = array_map(
             fn ($dir) => Str::replace('/', "\\", 'App/' . Str::after($dir, 'app/')),
             $commands,

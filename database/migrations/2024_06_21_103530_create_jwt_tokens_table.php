@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('unique_id');
             $table->string('token_title')->nullable();
             $table->json('restrictions')->nullable();
-            $table->json('permissions');
+            $table->json('permissions')->nullable();
             $table->timestamps();
             $table->timestamp('expires_at')->nullable();
             $table->timestamp('last_used_at')->nullable();
