@@ -22,7 +22,6 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Tests\\": "tests/",
             "Domains\\": "src/domains/",
             "Infrastructure\\": "src/infrastructure/"
         }
