@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Infrastructure\Services\CommandBus\Contracts;
 
-interface CommandResponseInterface
+use Infrastructure\Services\Shared\Contracts\BusResponseInterface;
+
+interface CommandResponseInterface extends BusResponseInterface
 {
-    /**
-     * @return array<string,mixed>
-     */
-    public function toArray(): array;
 }

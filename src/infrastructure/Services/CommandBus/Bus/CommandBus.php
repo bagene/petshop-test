@@ -8,9 +8,12 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Infrastructure\Services\CommandBus\Contracts\CommandBusInterface;
 use Infrastructure\Services\CommandBus\Contracts\CommandInterface;
 use Infrastructure\Services\CommandBus\Contracts\CommandResponseInterface;
+use Infrastructure\Services\Shared\Traits\BusMapper;
 
 final readonly class CommandBus implements CommandBusInterface
 {
+    use BusMapper;
+
     public function __construct(private Dispatcher $bus)
     {
     }
@@ -21,13 +24,5 @@ final readonly class CommandBus implements CommandBusInterface
         $response = $this->bus->dispatch($command);
 
         return $response;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function map(array $map): void
-    {
-        $this->bus->map($map);
     }
 }
