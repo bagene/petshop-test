@@ -11,7 +11,7 @@ use Domains\User\DTO\UserPayload;
 final readonly class CreateAdminCommandHandler
 {
     public function __construct(
-        private readonly UserRepositoryInterface $userRepository
+        private UserRepositoryInterface $userRepository
     ) {
     }
 

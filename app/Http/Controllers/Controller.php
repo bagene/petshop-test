@@ -21,6 +21,9 @@ abstract class Controller
     ) {
     }
 
+    /**
+     * @param class-string<CommandInterface> $commandClass
+     */
     protected function dispatch(FormRequest $request, string $commandClass = self::COMMAND_CLASS): JsonResponse
     {
         $command = call_user_func(
