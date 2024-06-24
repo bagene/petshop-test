@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->middleware('api')->group(function () {
     Route::prefix('admin')->middleware(AdminRoutes::class)->group(function () {
-        Route::middleware(AuthJwt::class)->group(function () {
+//        Route::middleware(AuthJwt::class)->group(function () {
             Route::post('create', [AdminController::class, 'create']);
-        });
+//        });
         Route::post('login', [AdminController::class, 'login']);
         Route::delete('logout', [AdminController::class, 'logout']);
     });

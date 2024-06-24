@@ -1,0 +1,62 @@
+networks:
+  petshop:
+
+volumes:
+  petshop-db:
+    driver: local
+    name: "petshop-db"
+services:
+  petshop-db:
+    image: mysql/mysql-server:8.0.21
+    restart: on-failure
+    container_name: "petshop-mysql"
+    command: [ "--default-authentication-plugin=mysql_native_password" ]
+    volumes:
+      - petshop-db:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "petshop"
+      MYSQL_PASSWORD: "petshop"
+    ports:
+      - "33306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      - petshop
+  fe:
+    build:
+      context: .
+      dockerfile: node/Dockerfile
+    container_name: "petshop-fe"
+    restart: on-failure
+    volumes:
+      - ./fe:/app
+    ports:
+      - "3000:3000"
+    environment:
+      VIRTUAL_PORT: 3000
+      URL: "http://localhost:3000"
+      NEXT_PUBLIC_API_URL: "http://localhost:8000"
+    expose:
+      - 3000
+    networks:
+      - petshop
+  api:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    container_name: "petshop-api"
+    command: "php artisan serve --host=0.0.0.0"
+    restart: on-failure
+    volumes:
+      - ./api:/var/www/html
+    ports:
+      - "8000:8000"
+    environment:
+      URL: "http://localhost:8000"
+    networks:
+      - petshop
+

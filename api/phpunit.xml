@@ -27,8 +27,11 @@
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_STORE" value="array"/>
-         <env name="DB_CONNECTION" value="sqlite"/>
-         <env name="DB_DATABASE" value=":memory:"/>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_HOST" value="petshop-db"/>
+        <env name="DB_DATABASE" value="petshop-test"/>
+        <env name="DB_USERNAME" value="petshop"/>
+        <env name="DB_PASSWORD" value="petshop"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="PULSE_ENABLED" value="false"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
