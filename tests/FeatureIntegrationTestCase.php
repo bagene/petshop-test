@@ -19,13 +19,21 @@ abstract class FeatureIntegrationTestCase extends BaseTestCase
 
     protected function actAsAdminUser(): self
     {
+        $token = $this->createAdminSession()->unique_id;
+
+        return $this->withHeader('Authorization', "Bearer $token");
+    }
+
+    protected function createAdminSession(): JwtToken
+    {
         $jwtManager = $this->app->make(JwtManagerInterface::class);
         $sessionRepository = $this->app->make(SessionRepositoryInterface::class);
         $user = User::factory()->create(['is_admin' => true]);
 
         $token = $jwtManager->generate($user, strtotime(JwtManagerInterface::TTL), strtotime(JwtManagerInterface::NBF));
 
-        $sessionRepository->create(
+        /** @var JwtToken $jwtToken */
+        $jwtToken = $sessionRepository->create(
             JwtTokenPayload::fromArray([
                 'userId' => $user->id,
                 'uniqueId' => $token,
@@ -35,6 +43,6 @@ abstract class FeatureIntegrationTestCase extends BaseTestCase
             ])
         );
 
-        return $this->withHeader('Authorization', "Bearer $token");
+        return $jwtToken;
     }
 }

@@ -6,6 +6,7 @@ namespace Domains\User\DTO;
 
 use App\Shared\AbstractDTO;
 use App\Shared\Traits\StaticConstructor;
+use Carbon\Carbon;
 
 final class JwtTokenPayload extends AbstractDTO
 {
@@ -22,9 +23,9 @@ final class JwtTokenPayload extends AbstractDTO
         private readonly string $tokenTitle = self::DEFAULT_TOKEN_TITLE,
         private readonly ?array $restrictions = null,
         private readonly ?array $permissions = null,
-        private readonly ?\DateTimeInterface $expiresAt = null,
-        private readonly ?\DateTimeInterface $lastUsedAt = null,
-        private readonly ?\DateTimeInterface $refreshedAt = null,
+        private readonly ?Carbon $expiresAt = null,
+        private readonly ?Carbon $lastUsedAt = null,
+        private readonly ?Carbon $refreshedAt = null,
     ) {
     }
 
@@ -59,17 +60,17 @@ final class JwtTokenPayload extends AbstractDTO
         return $this->permissions;
     }
 
-    public function getExpiresAt(): ?\DateTimeInterface
+    public function getExpiresAt(): ?Carbon
     {
         return $this->expiresAt;
     }
 
-    public function getLastUsedAt(): ?\DateTimeInterface
+    public function getLastUsedAt(): ?Carbon
     {
         return $this->lastUsedAt;
     }
 
-    public function getRefreshedAt(): ?\DateTimeInterface
+    public function getRefreshedAt(): ?Carbon
     {
         return $this->refreshedAt;
     }
