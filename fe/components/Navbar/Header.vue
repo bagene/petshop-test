@@ -23,7 +23,7 @@
 <template>
   <VAppBar :elevation="2" color="primary">
     <template v-slot:prepend>
-      <VAppBarNavIcon>
+      <VAppBarNavIcon class="ml-4">
         <img src="~/assets/icons/petson.png" alt="nav-logo">
       </VAppBarNavIcon>
     </template>
@@ -32,17 +32,20 @@
       petson
     </VAppBarTitle>
 
-    <VTabs v-model="selectedTab" align-tabs="start" style="color: #fff">
-      <VTab
-          v-for="tab in tabs"
-          :key="tab.label"
-          :text="tab.label"
-          :value="tab.label"
-      />
-    </VTabs>
+    <VRow justify="start">
+      <VTabs v-model="selectedTab" align-tabs="start" style="color: #fff">
+        <VTab
+            v-for="tab in tabs"
+            :key="tab.label"
+            :text="tab.label"
+            :value="tab.label"
+        />
+      </VTabs>
+    </VRow>
+
 
     <template v-slot:append>
-      <VRow justify="start">
+      <VRow justify="end" class="mr-4">
         <VCol>
           <VBtn color="#fff" variant="outlined">
             <v-icon>mdi-cart</v-icon>
