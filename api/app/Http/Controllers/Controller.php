@@ -38,9 +38,11 @@ abstract class Controller
     /**
      * @param class-string<QueryInterface> $queryClass
      */
-    protected function ask(string $queryClass = self::QUERY_CLASS, bool $wrapInData = true): JsonResponse
+    protected function ask(string $queryClass = self::QUERY_CLASS, bool $wrapInData = true, bool $fromQuery = false): JsonResponse
     {
-        $query = new $queryClass();
+        $query = $fromQuery ?
+            $queryClass::fromQueryParameters(request())
+            : new $queryClass();
 
         $response = $this->queryBus->ask($query);
 

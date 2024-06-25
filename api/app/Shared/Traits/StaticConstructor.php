@@ -6,6 +6,7 @@ namespace App\Shared\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 /**
@@ -36,6 +37,11 @@ trait StaticConstructor
         return static::fromArray($request->validated());
     }
 
+    public static function fromQueryParameters(Request $request): static
+    {
+        return static::fromArray($request->query());
+    }
+
     /**
      * @param array<string,mixed> $data
      * @return array<string,mixed>
@@ -55,9 +61,16 @@ trait StaticConstructor
         }
 
         foreach ($arguments as $argument) {
+            $type = $argument->getType()?->getName();
             $default = $argument->isDefaultValueAvailable() ? $argument->getDefaultValue() : null;
             $key = Str::camel($argument->getName());
             $result[$key] = $data[Str::snake($key)] ?? $data[$key] ?? $default;
+            $result[$key] = match ($type) {
+                'int' => (int) $result[$key],
+                'float' => (float) $result[$key],
+                'bool' => (bool) $result[$key],
+                default => $result[$key],
+            };
         }
 
         return $result;

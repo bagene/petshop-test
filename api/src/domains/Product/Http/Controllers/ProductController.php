@@ -12,6 +12,6 @@ final class ProductController extends Controller
 {
     public function index(): JsonResponse
     {
-        return $this->ask(GetAllProductQuery::class, false);
+        return $this->ask(GetAllProductQuery::class, false, true);
     }
 }

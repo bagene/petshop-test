@@ -11,6 +11,13 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected function casts()
+    {
+        return [
+            'metadata' => 'array',
+        ];
+    }
+
     /**
      * @return BelongsTo<Category>
      */

@@ -28,11 +28,18 @@ interface RepositoryInterface
     public function delete(Model $model): bool;
 
     /**
+     * @param array{
+     *    perPage?: int,
+     *    page?: int,
+     *    columns?: string[],
+     *    pageName?: string,
+     *    total?: int,
+     * } $pagination
      * @param array<string, mixed> $filters
      * @param string[] $with
      * @return LengthAwarePaginator<Model>
      */
-    public function search(array $filters = [], array $with = []): LengthAwarePaginator;
+    public function search(array $pagination = [], array $filters = [], array $with = []): LengthAwarePaginator;
 
     /**
      * @param array<string, mixed> $filters
