@@ -38,12 +38,18 @@ abstract class Controller
     /**
      * @param class-string<QueryInterface> $queryClass
      */
-    protected function ask(string $queryClass = self::QUERY_CLASS): JsonResponse
+    protected function ask(string $queryClass = self::QUERY_CLASS, bool $wrapInData = true): JsonResponse
     {
         $query = new $queryClass();
 
-        return response()->json([
-            'data' => $this->queryBus->ask($query)->toArray(),
-        ]);
+        $response = $this->queryBus->ask($query);
+
+        if ($wrapInData) {
+            return response()->json([
+                'data' => $response->toArray(),
+            ]);
+        }
+
+        return response()->json($response->toArray());
     }
 }

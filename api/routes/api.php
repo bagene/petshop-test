@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Middleware\AdminRoutes;
 use App\Http\Middleware\AuthJwt;
+use Domains\Product\Http\Controllers\ProductController;
 use Domains\User\Http\Controllers\AdminController;
 use Domains\User\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +25,9 @@ Route::prefix('v1')->middleware('api')->group(function () {
 
         Route::post('login', [AuthController::class, 'login']);
         Route::delete('logout', [AuthController::class, 'logout']);
+    });
+
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductController::class, 'index']);
     });
 });

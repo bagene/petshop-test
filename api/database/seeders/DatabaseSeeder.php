@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\CategoryFactory;
+use Domains\Product\Models\Category;
+use Domains\Product\Models\Product;
 use Domains\User\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,11 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Category::factory()
+            ->has(
+                Product::factory()->count(10)
+            )
+            ->count(10)
+            ->create();
     }
 }

@@ -29,9 +29,10 @@ interface RepositoryInterface
 
     /**
      * @param array<string, mixed> $filters
+     * @param string[] $with
      * @return LengthAwarePaginator<Model>
      */
-    public function search(array $filters = []): LengthAwarePaginator;
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator;
 
     /**
      * @param array<string, mixed> $filters

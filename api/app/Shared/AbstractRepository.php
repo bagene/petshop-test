@@ -95,10 +95,11 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritDoc
      */
-    public function search(array $filters = []): LengthAwarePaginator
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator
     {
         return $this->model->query()
             ->where($filters)
+            ->with($with)
             ->paginate(self::DEFAULT_LIMIT);
     }
 
