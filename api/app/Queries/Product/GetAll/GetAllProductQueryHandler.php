@@ -23,6 +23,7 @@ final class GetAllProductQueryHandler
                 'page' => $query->getPage(),
                 'perPage' => $query->getLimit(),
             ],
+            with: ['category']
         );
 
         $productArray = $products->toArray();
