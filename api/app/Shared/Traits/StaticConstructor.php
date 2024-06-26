@@ -7,6 +7,7 @@ namespace App\Shared\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
 
 /**
@@ -39,7 +40,11 @@ trait StaticConstructor
 
     public static function fromQueryParameters(Request $request): static
     {
-        return static::fromArray($request->query());
+        /** @var Route $route */
+        $route = $request->route();
+        /** @var array<string,mixed> $queries */
+        $queries = $request->query() ?: $route->parameters();
+        return static::fromArray($queries);
     }
 
     /**
@@ -61,7 +66,9 @@ trait StaticConstructor
         }
 
         foreach ($arguments as $argument) {
-            $type = $argument->getType()?->getName();
+            /** @var string $type */
+            $type = $argument->getType()?->__toString();
+            $type = Str::replace('?', '', $type);
             $default = $argument->isDefaultValueAvailable() ? $argument->getDefaultValue() : null;
             $key = Str::camel($argument->getName());
             $result[$key] = $data[Str::snake($key)] ?? $data[$key] ?? $default;

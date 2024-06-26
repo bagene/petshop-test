@@ -10,5 +10,5 @@ use Infrastructure\Services\QueryBus\Contracts\QueryInterface;
 
 abstract class AbstractQuery implements QueryInterface
 {
-    use StaticConstructor, ToArray;
+    use ToArray;
 }

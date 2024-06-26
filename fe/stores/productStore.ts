@@ -3,7 +3,8 @@ import type {Product, Products} from "~/models/Product";
 import type {ProxyResponse} from "~/models/ProxyResponse";
 
 export const productStore = defineStore('product', () => {
-    const products: Products = [];
+    const products = ref<Products>([]);
+    const selectedProduct = ref<Product | null>(null);
 
     const fetchProducts = async (
         filter: {[key: string]: string|number|boolean} = {}
@@ -20,8 +21,19 @@ export const productStore = defineStore('product', () => {
         }
     }
 
+    const fetchProduct = async (uuid: string) => {
+        const { data: { value } } = await useFetch<ProxyResponse<Product>>(
+            `/api/products/${uuid}`,
+            { method: 'get' }
+        );
+console.log(value?.data)
+        if (value?.ok) {
+            selectedProduct.value = value?.data as Product;
+        }
+    }
+
     const addProducts = (newProducts: Products) => {
-        products.push(...newProducts);
+        products.value.push(...newProducts);
     }
 
     const getProducts = () => {
@@ -33,5 +45,7 @@ export const productStore = defineStore('product', () => {
         addProducts,
         getProducts,
         fetchProducts,
+        selectedProduct,
+        fetchProduct,
     };
 });

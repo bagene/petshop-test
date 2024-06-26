@@ -12,6 +12,14 @@ final class PaginatedResponse implements QueryResponseInterface
 {
     use StaticConstructor, ToArray;
 
+    /**
+     * @param array<string, mixed> $data
+     * @param array{
+     *     url: string,
+     *     label: string,
+     *     active: bool,
+     * } $links
+     */
     private function __construct(
         private readonly int $currentPage,
         private readonly array $data,
@@ -34,6 +42,9 @@ final class PaginatedResponse implements QueryResponseInterface
         return $this->currentPage;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getData(): array
     {
         return $this->data;
@@ -59,6 +70,13 @@ final class PaginatedResponse implements QueryResponseInterface
         return $this->lastPageUrl;
     }
 
+    /**
+     * @return array{
+     *      url: string,
+     *      label: string,
+     *      active: bool,
+     *  }
+     */
     public function getLinks(): array
     {
         return $this->links;

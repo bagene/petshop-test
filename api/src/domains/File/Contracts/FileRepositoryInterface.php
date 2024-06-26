@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Domains\File\Contracts;
 
-interface FileRepositoryInterface
-{
+use App\Shared\Contracts\RepositoryInterface;
 
+interface FileRepositoryInterface extends RepositoryInterface
+{
 }

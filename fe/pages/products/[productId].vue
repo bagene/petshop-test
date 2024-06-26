@@ -1,24 +1,29 @@
 <script setup lang="ts">
+  const router = useRouter();
+  const productId = computed(() => router.currentRoute.value.params.productId);
+  const { fetchProduct } = productStore();
 
+  await fetchProduct(productId.value as string);
+
+  const { selectedProduct } = storeToRefs(productStore());
 
 </script>
 
 <template>
-  <ProductPageCard />
+  <template v-if="selectedProduct">
+    <ProductPageCard :product="selectedProduct" />
 
-  <VContainer>
-    <VRow>
-      <VCol cols="12">
-        <Typography type="text-body">
-          Voluptatem consequatur nobis corporis ipsam corrupti ut. Velit rerum necessitatibus mollitia atque rerum ullam beatae quia. Autem et voluptatem rem.
+    <VContainer>
+      <VRow>
+        <VCol cols="12">
+          <Typography type="text-body">
+            {{ selectedProduct.description }}
+          </Typography>
+        </VCol>
+      </VRow>
+    </VContainer>
+  </template>
 
-          Aut nam aliquam et possimus et illo tempora. Maxime consequatur enim eos ut et est officia. In officia quia itaque quam quidem ipsam sit numquam.
-
-          Quisquam odio illum voluptas cumque aliquid vel eos velit. Porro illum vel dolorem illum consectetur expedita. Et deleniti nobis fugit architecto. Ad magnam expedita sed excepturi labore.
-        </Typography>
-      </VCol>
-    </VRow>
-  </VContainer>
 </template>
 
 <style scoped>

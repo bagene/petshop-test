@@ -1,16 +1,27 @@
 <script setup lang="ts">
+  import type {Product} from "~/models/Product";
+
+  const { product } = defineProps({
+    product: {
+      type: Object as PropType<Product>,
+      required: true,
+    }
+  });
+
   const items = [
-    { title: 'Dashboard', disabled: false, href: '/dashboard' },
-    { title: 'Products', disabled: false, href: '/products' },
-    { title: 'Product', disabled: true, href: '/products/1' },
+    { title: 'Home', disabled: false, href: '/' },
+    { title: product.category.title, disabled: false, href: '/' },
+    { title: product.title, disabled: true, href: `/products/${product.uuid}` },
   ];
+
+
 </script>
 
 <template>
   <VContainer>
     <VRow>
       <VCol align-self="start">
-        <VBreadcrumbs :items="items">
+        <VBreadcrumbs :items="items" href="href">
           <template v-slot:title="{ item }">
             {{ item.title }}
           </template>
@@ -23,14 +34,14 @@
         <VImg width="652" height="652" src="~/assets/img/product-image.png" />
       </VCol>
       <VCol cols="6" align-self="center">
-        <Typography type="text-h3">Brit Care</Typography>
+        <Typography type="text-h3">{{ product.title }}</Typography>
         <Typography type="text-h5" class="text-grey font-weight-light">
-          Endurance Duck & Rice Dry dog food
+          {{ product.category.title }}
         </Typography>
         <VSpacer class="mt-12" />
 
         <Typography type="text-h3" class="font-weight-light">
-          200 kn
+          {{ product.price }} kn
         </Typography>
 
         <VSpacer class="mt-4" />

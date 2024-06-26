@@ -23,7 +23,10 @@ interface RepositoryInterface
 
     public function find(string|int $id): ?Model;
 
-    public function findBy(string $column, mixed $value): ?Model;
+    /**
+     * @param string[] $with
+     */
+    public function findBy(string $column, mixed $value, array $with = []): ?Model;
 
     public function delete(Model $model): bool;
 

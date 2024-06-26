@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domains\Product\Models;
 
 use Database\Factories\ProductFactory;
@@ -13,7 +15,10 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected function casts()
+    /**
+     * @return string[]
+     */
+    protected function casts(): array
     {
         return [
             'metadata' => 'array',
@@ -21,7 +26,7 @@ class Product extends Model
     }
 
     /**
-     * @return BelongsTo<Category>
+     * @return BelongsTo<Category, Product>
      */
     public function category(): BelongsTo
     {
