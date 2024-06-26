@@ -1,5 +1,4 @@
 export interface Image {
-    id: number;
     uuid: string;
     name: string;
     path: string;

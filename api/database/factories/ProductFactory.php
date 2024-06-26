@@ -22,7 +22,7 @@ class ProductFactory extends Factory
             'uuid' => $this->faker->uuid(),
             'title' => $this->faker->word(),
             'price' => $this->faker->randomFloat(2, 0, 1000),
-            'description' => $this->faker->sentence(),
+            'description' => $this->faker->paragraphs(asText: true),
         ];
     }
 }

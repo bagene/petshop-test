@@ -4,21 +4,23 @@ import type {Product} from "~/models/Product";
 import type {Image} from "~/models/Image";
 
 defineProps({
-  product: Object as PropType<Product>
-})
+  product: {
+    type: Object as PropType<Product>,
+    required: true,
+  }
+});
 </script>
 
 <template>
-  <VCard variant="flat" hover max-width="300" max-height="450">
-
-    <VCardItem>
-      <VImg :src="(product.image as Image).path" />
+  <VCard :href="`/products/${product.uuid}`" variant="flat" hover max-width="300" max-height="450">
+    <VCardItem >
+      <VImg src="~/assets/img/product-image.png" />
 
       <VCardText>
         <Typography type="text-h6" class="text-decoration-underline">
           {{ product.title }}
         </Typography>
-        <Typography class="text-light">Animonda</Typography>
+        <Typography class="text-grey">Animonda</Typography>
         <Typography class="text-h6">
           {{ product.price }} kn
         </Typography>

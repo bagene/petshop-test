@@ -27,10 +27,13 @@ const categories = computed(() => {
 <template>
   <VContainer>
     <VRow no-gutters>
-      <VCol cols="6" offset-sm="3" align-self="center">
+      <VCol class="mt-8" cols="6" offset-sm="3" align-self="center">
         <VTextField
+            class="text-primary"
+            color="primary"
+            base-color="primary"
             prepend-inner-icon="mdi-magnify"
-            placeholder="Search for products"
+            label="Search products"
             variant="outlined"
         />
       </VCol>
@@ -43,13 +46,16 @@ const categories = computed(() => {
 
   <VContainer v-for="category in Object.keys(categories).splice(0, 2)">
     <VRow>
-      <div class="text-h3 text-primary">
-        {{ category }}
-      </div>
+      <VCol>
+        <Typography class="text-h3 text-primary">
+          {{ category }}
+        </Typography>
+      </VCol>
+
     </VRow>
     <VRow>
-      <VCol v-for="product in categories[category].splice(0, 3)">
-        <ProductCard :product="product"/>
+      <VCol v-for="product in categories[category].splice(0, 4)">
+        <ProductCard :product="product" class="mb-2"/>
       </VCol>
     </VRow>
 

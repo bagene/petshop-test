@@ -2,7 +2,6 @@ import type {Image} from "~/models/Image";
 import type {Category} from "~/models/Category";
 
 export interface Product {
-    id: number;
     category_id: number;
     uuid: string;
     title: string;
