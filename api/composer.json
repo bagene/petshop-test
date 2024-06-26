@@ -4,8 +4,15 @@
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/bacs"
+        }
+    ],
     "require": {
         "php": "^8.2",
+        "bagene/bacs": "dev-main",
         "firebase/php-jwt": "^6.10",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9"

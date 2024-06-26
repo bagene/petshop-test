@@ -33,7 +33,6 @@ final class GetAllProductQueryHandler
         return PaginatedResponse::fromArray([
             ...$products->toArray(),
             'data' => array_map(function ($product) {
-
                 if ($imgUuid = data_get($product, 'metadata.image')) {
                     /** @var File $image */
                     $image = $this->fileRepository->findBy('uuid', $imgUuid);

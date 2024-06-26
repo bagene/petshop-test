@@ -1,0 +1,25 @@
+{
+    "name": "bagene/bacs",
+    "description": "BACS implementation",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Bagene\\Bacs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gene Navera",
+            "email": "gnavera@gmail.com"
+        }
+    ],
+    "require": {},
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bagene\\Bacs\\BacsServiceProvider"
+            ]
+        }
+    }
+}
