@@ -19,7 +19,7 @@ class JwtServiceProvider extends ServiceProvider
             ->give(env('APP_DOMAIN'));
         $this->app->when(JwtManager::class)
             ->needs('$key')
-            ->give(env('APP_KEY'));
+            ->give(env('JWT_KEY'));
     }
 
     /**

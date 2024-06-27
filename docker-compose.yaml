@@ -55,7 +55,6 @@ services:
       context: .
       dockerfile: php/Dockerfile
     container_name: "petshop-api"
-    command: "php artisan serve --host=0.0.0.0"
     restart: on-failure
     volumes:
       - ./api:/var/www/html
@@ -63,6 +62,12 @@ services:
       - "8000:8000"
     environment:
       URL: "http://localhost:8000"
+      APP_DOMAIN: "localhost"
+      JWT_KEY: "KqTDX7uB9hQ0jm4AB7zzSR5/1NaANu59tTWHIzsYr/o="
+      DB_HOST: "petshop-db"
+      DB_DATABASE: "petshop"
+      DB_USERNAME: "petshop"
+      DB_PASSWORD: "petshop"
     networks:
       petshop-network:
         ipv4_address: 10.2.0.20

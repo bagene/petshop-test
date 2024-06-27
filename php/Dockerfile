@@ -24,10 +24,4 @@ USER app
 
 WORKDIR /var/www/html
 
-CMD composer install
-CMD php artisan optimize:clear
-CMD php artisan config:clear
-CMD php artisan route:clear
-
-CMD php artisan migrate --force
-
+ENTRYPOINT ["./entrypoint.sh"]
