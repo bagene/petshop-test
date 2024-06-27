@@ -7,6 +7,7 @@ RUN apt-get update \
         git \
         libzip-dev \
         unzip \
+        wait-for-it \
     && pecl install xdebug \
     && docker-php-ext-install  \
         mysqli \
