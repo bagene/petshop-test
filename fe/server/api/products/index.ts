@@ -1,6 +1,6 @@
 import { appendAuthHeaders } from "~/utils/appendApiHeaders";
 import { appendApiRoute } from "~/utils/appendApiRoute";
-import fetchApi from "~/utils/fetchApi";
+import { fetchApi } from "~/utils/fetchApi";
 
 export default defineEventHandler(async (event) => {
     const query = getQuery(event);

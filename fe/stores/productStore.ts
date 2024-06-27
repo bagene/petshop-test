@@ -11,11 +11,11 @@ export const productStore = defineStore('product', () => {
     ) => {
         const queryString = Object.keys(filter).map(key => `${key}=${filter[key]}`).join('&');
 
-        const { data: { value } } = await useFetch<ProxyResponse<Product[]>>(
+        const { data: { value } } = await useFetch<ProxyResponse<Products>>(
             `/api/products?${queryString}`,
             { method: 'get' }
         );
-
+console.log(value);
         if (value?.ok) {
             addProducts(value?.data as Products);
         }
@@ -26,7 +26,7 @@ export const productStore = defineStore('product', () => {
             `/api/products/${uuid}`,
             { method: 'get' }
         );
-console.log(value?.data)
+
         if (value?.ok) {
             selectedProduct.value = value?.data as Product;
         }

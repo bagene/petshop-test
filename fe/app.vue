@@ -2,6 +2,7 @@
   <div>
     <VApp>
       <NuxtLayout>
+        <ErrorSnackbar />
         <NuxtPage />
       </NuxtLayout>
     </VApp>

@@ -1,7 +1,7 @@
 export interface ErrorResponse {
     message: string;
     errors?: {
-        string: string[];
+        [key: string]: string[];
     },
 }
 

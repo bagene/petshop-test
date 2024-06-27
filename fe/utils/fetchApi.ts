@@ -29,7 +29,7 @@ export const fetchApi = async (
         const response: ApiResponse =  await $fetch(url, {
             ...options,
             onResponseError({ response }: FetchContext & { response: FetchResponse<ErrorResponse> }): Promise<void> | void {
-                error = response._data.error;
+                error = response._data;
                 status = response.status;
             }
         });
@@ -51,5 +51,3 @@ export const fetchApi = async (
         };
     }
 }
-
-export default fetchApi;

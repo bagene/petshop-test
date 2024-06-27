@@ -12,6 +12,7 @@ export default defineNuxtConfig({
       })
     },
     '@pinia/nuxt',
+    '@nuxt/test-utils/module'
   ],
   vite: {
     vue: {
